@@ -12,7 +12,7 @@ HAVING Sum(amount) > 100
 ORDER  BY first_name DESC; 
 
 
--- (2) Write a SQL query to fetch all the movies Tim Hackman
+-- (2) Write a SQL query to fetch all the movies of Tim Hackman
 
 SELECT title, first_name, last_name 
 FROM   actor 
@@ -24,7 +24,7 @@ WHERE  first_name = 'Tim'
        AND last_name = 'Hackman';
        
        
--- (3) What customer has the highest customer ID number whose name starts with an 'E' and has an address ID lower than 500
+-- (3) What customer has the highest customer ID number whose name starts with an 'S' and has an address ID lower than 500
 
 SELECT first_name,
        last_name
@@ -41,7 +41,7 @@ FROM   film
 WHERE  title ILIKE 'j%';
 
 
--- (5) Return the customer IDs of customers who have spent at least $100 with the staff member who has an ID of 1
+-- (5) Return the customer IDs of those customers who have spent at least $100 with the staff member ID of 1
 
 SELECT customer_id
 FROM   payment
@@ -50,8 +50,8 @@ GROUP  BY customer_id
 HAVING Sum(amount) >= 100; 
 
 
--- (6) The company is celebrating its Coral anniversary (35 years) and will assign Cashback Loyalty Program for 
--- all the customers that have had 35 or more payments transaction 
+-- (6) The company is celebrating its Coral Anniversary (35 years) and will assign Cashback Loyalty Program for 
+-- all the customers that have had 35 or more payment transactions
 
 SELECT customer_id,
        Count(*)
@@ -81,4 +81,13 @@ FROM   film
 WHERE  title ILIKE '%flight%';
 
 
--- (10) 
+-- (10) Find the films that we have information about them in film table but are not available in inventory
+
+SELECT film.film_id,
+       title
+FROM   film
+       LEFT OUTER JOIN inventory
+                    ON film.film_id = inventory.film_id
+WHERE  inventory.film_id IS NULL 
+                  
+
